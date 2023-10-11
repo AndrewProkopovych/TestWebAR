@@ -8,6 +8,22 @@
     <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/jeromeetienne/AR.js/2.2.2/aframe/build/aframe-ar.js"></script>
 
+    <!-- Add this script for requesting camera permission -->
+    <script>
+        // Request camera permission on page load
+        window.onload = function () {
+            navigator.mediaDevices
+                .getUserMedia({ video: true })
+                .then(function (stream) {
+                    // Camera access granted, you can proceed with your AR application.
+                })
+                .catch(function (error) {
+                    console.error('Camera access denied: ', error);
+                });
+        };
+    </script>
+
+    <!-- Add this style section for popup styling -->
     <style>
         /* Styles for the popup */
         .popup {
@@ -36,8 +52,8 @@
         ></a-entity>
     </a-marker>
 
-    <!-- Camera -->
-    <a-entity camera></a-entity>
+    <!-- Camera with FOV adjustment -->
+    <a-entity camera="fov: 60;"></a-entity>
 </a-scene>
 
 <!-- Popup (initially hidden) -->
@@ -55,6 +71,23 @@
         // Show the popup when the marker is found
         popup.style.display = 'block';
     });
+</script>
+
+<!-- Add this script for motion sensor access -->
+<script>
+    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+        DeviceOrientationEvent.requestPermission()
+            .then(function (response) {
+                if (response === 'granted') {
+                    // Motion sensor access granted, you can use it in your AR application.
+                } else {
+                    console.error('Motion sensor access denied');
+                }
+            })
+            .catch(function (error) {
+                console.error('Error requesting motion sensor permission: ', error);
+            });
+    }
 </script>
 </body>
 </html>
