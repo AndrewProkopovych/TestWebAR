@@ -8,6 +8,14 @@
     <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/jeromeetienne/AR.js/2.2.2/aframe/build/aframe-ar.js"></script>
 
+    <!-- Add this script for requesting camera permission on Android -->
+    <script>
+        if (window.Android) {
+            window.Android.requestCameraPermission();
+        }
+    </script>
+
+    <!-- Add this style section for popup styling -->
     <style>
         /* Styles for the popup */
         .popup {
@@ -36,8 +44,8 @@
         ></a-entity>
     </a-marker>
 
-    <!-- Camera -->
-    <a-entity camera></a-entity>
+    <!-- Camera with FOV adjustment -->
+    <a-entity camera="fov: 60;"></a-entity>
 </a-scene>
 
 <!-- Popup (initially hidden) -->
